@@ -9,7 +9,7 @@ Reference Material:
 * https://www.ibm.com/support/knowledgecenter/en/SS3RA7_16.0.0/com.ibm.spss.modeler.help/clementine/streamingts_deploymenttab.htm#streamingts_deploymenttab
 
 ## Add input file as asset
-Upload `broadband.csv` a file Data Asset
+Upload `broadband.csv` as file Data Asset.
 
 ## Create SPSS Flow with Modeler
 ### Setup flow with asset as input
