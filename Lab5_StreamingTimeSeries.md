@@ -53,18 +53,23 @@ To get an understanding of the fields, we'll visualize them as a time plot:
    * `$TSLCI-Market_1` and `$TSUCI-Market_1`: the Lower and Upper Confidence Indicators for the prediction.
      * `$TSResidual-Market_1`: the computed residuals of prediction vs actuals
 1. Add the `DATE_` as X axis label: ![](images_Lab4/20190215_9fd7ee01.png)
-1. Run the graph and then display it: 
-1. You may wantto do the same for e.g. `Market_2` field
+1. Run the graph and then display it:
+1. You may want to do the same for e.g. `Market_2` field
 
 ## Deploy Streaming TimeSeries model
 1. In order to get the output of the deployment, add a `Table` node from the *Outputs* drawer, and wire it to the *Streaming TS* node: ![](images_Lab4/20190215_cfbc6d94.png)
 1. From the *Table* node menu, select `Save branch as model`: ![](images_Lab4/20190215_e1680e0d.png).
-   Note that you may be prompted to create a Watson Machine Learning instance at this stage.
-1. In the *Save Model* panel, make sure the `Table` branch is selected as terminal node, give it a name, e.g. `Markets_Predictions` and save: ![](images_Lab4/20190215_2307087a.png)
-1. We will now deploy the model as a REST API endpoint. Switch back to your project, locate you newly saved model in the *Models* section and select *Deploy* from its menu: ![](images_Lab4/20190215_5137e398.png)
-1. In the net panel, select `(+) Add Deployment`: ![](images_Lab4/20190215_656d4ed5.png)
-1. Give it a name, e.g. `REST_Market_Predict`, and `[Save ]`: ![](images_Lab4/20190215_647dcdeb.png)
-1. You may have a look at the REST service definition, especially the implementation tab will show among other languages the Python client code to invoke prediction. 
+1. In the *Save Model* panel, make sure the `Table` branch is selected as terminal node, give it a name, e.g. `Markets_Predictions` and save: ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-1afdad69.png)
+1. We will now promote the model to a deployment space from where we can expose through a REST API endpoint. Switch back to your project, locate you newly saved model in the *Models* section and select *Promote* from its menu: ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-92d26f0b.png)
+1. Select the `[New space +]` button ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-76cf65d5.png)
+1. Give the deployment space a name, e.g. `Market_DeplSpace`. Make sure your instance of *Watson Machine Learning* is selected and click `[Create]` ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-2a789499.png), wait for it to be ready and close.
+1. Back in the Promote dialog, select your new space as target space and click `[Promote]` ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-d16c5fc5.png)
+1. From the top-left hamburger menu, select *View all spaces* ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-e8aa0198.png)
+1. Open your `Market_DeplSpace` ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-ae90beb3.png)
+1. Click on the rocket button to deploy ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-7ebb669d.png)
+1. Select Online type tile, give it a name, e.g. `Online_Market_Predict`, and click `[Create]`: ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-2ed368eb.png)
+1. Switch to the Deployments tab and open your deployment once it will be in `Deployed` state ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-b1befd96.png)
+1. Copy the Direct link Endpoint value to clipboard ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-b67f09e7.png)
 
 ## Invoke the REST endpoint from a notebook
 We could test the deployed service from the Cloud UI interface, but the volume of input data does not make it very practical.   
@@ -73,9 +78,7 @@ So, we will use a Python Jupyter notebook to test and display predictions.
 1. The test notebook has been prepared for you. It is derived from the Python implementation sample code, but is using the WML Python wrapper library to find the model named `Markets_Predictions`. The WML python client library is documented at https://wml-api-pyclient.mybluemix.net/
 1. Switch back to your project and add an asset of type *Notebook*: ![](images_Lab4/20190215_57058974.png)
 1. Switch to the *From file* tab, and choose  `WML_StreamingTS_Predictions.ipynb` notebook, select the 'Default Python 3.5 Free' environment: ![](images_Lab4/20190215_c7fc03df.png)
-1. You will need to specify your own Cloud Object Storage (COS) and Watson Machine Learning (WML) credentials.
-1. Locate the cell which contains `cos_credentials = {`, open the data asset panel on the right, and from the `broadband.csv` file, select `Insert to code/Insert Credentials` to override the existing assignement. Make sure the variavle name is `cos_credentials` and not `credentials_1`: ![](images_Lab4/20190215_b20a0dfd.png)
-1. Locate the cell which contains `wml_credentials = {`. To find out your credentials, open the 'hamburger' menu at the top left, then open *Services/Watson Services* in a new tab: ![](images_Lab4/20190215_a1a27dfe.png)
-1. Select the WML service instance that you have configured for your project, and select *Manage in IBM Cloud* from its context menu: ![](images_Lab4/20190215_a009b951.png)
-1. Open *Service Credentials*, and copy the contents of the `wdp-writer` credentials: ![](images_Lab4/20190215_7bafc95e.png)
-1. Paste the credentials to replace the value of `wlm_credentials` in the notebook cell.
+1. In the notebook, you will need to specify your own Cloud Object Storage (COS) and IAM credentials.
+1. Locate the cell which contains `cos_credentials = {`, open the data asset panel on the right, and from the `broadband.csv` file, select `Insert to code/Insert Credentials` to override the existing assignement. Make sure the variable name is `cos_credentials` and not `credentials_1`: ![](images_Lab4/20190215_b20a0dfd.png)
+1. Locate the cell which contains `IAM_APIKEY=`. To generate an API_KEY, navigate to https://cloud.ibm.com/iam/apikeys in a separate browser tab.
+1. Follow the notebook execution flow, which will drive predictions and chart the results.
