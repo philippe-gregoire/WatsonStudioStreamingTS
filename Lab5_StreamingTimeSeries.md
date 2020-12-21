@@ -8,12 +8,16 @@ Reference Material:
 
 * https://www.ibm.com/support/knowledgecenter/en/SS3RA7_16.0.0/com.ibm.spss.modeler.help/clementine/streamingts_deploymenttab.htm#streamingts_deploymenttab
 
+## Setup
+Create a project in Watson Studio, named e.g. `StreamingTS`
+![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-f7d1847a.png)
+
 ## Add input file as asset
-Upload `broadband.csv` as file Data Asset.
+Upload `broadband.csv` as file Data Asset in your project: ![](Lab5_StreamingTimeSeries.assets/Lab5_StreamingTimeSeries-90566d7a.png)
 
 ## Create SPSS Flow with Modeler
 ### Setup flow with asset as input
-1. Create new Modeler Flow: ![](images_Lab4/20190214_f51e8d61.png)
+1. Create new Modeler Flow using the `[(+) Add to project]` button: ![](images_Lab4/20190214_f51e8d61.png)
 1. Give it a name, e.g. *SPSS Streaming TS*, making sure the type is *Modeler Flow* and runtime *IBM SPSS Modeler* ![](images_Lab4/20190214_ef06293f.png)
 3. One the flow canvas is displayed, from the `Import` palette drawer, add a `Data Asset` node: ![](images_Lab4/20190214_38973598.png)
 4. Open the node from its menu: ![](images_Lab4/20190214_9235522e.png)
